@@ -1,0 +1,14 @@
+.wrapper {
+  width: 100%;
+}
+.select {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.user {
+  flex-grow: 1;
+}

@@ -1,0 +1,11 @@
+.row {
+  padding: .5rem 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  align-items: center;
+}
+
+.sum {
+  justify-self: right;
+}

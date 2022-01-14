@@ -1,0 +1,58 @@
+@import "../../assets/styles/style";
+
+//TODO
+.windowN {
+  display: flex;
+  border: 2px solid $mainDarkPurple;
+  justify-content: center;
+  border-radius: 5px;
+  width: 100%;
+  position: relative;
+}
+
+.window {
+  display: flex;
+  border: 2px solid $mainDarkPurple;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 100%;
+  position: relative;
+}
+
+.title {
+  position: absolute;
+  font-size: .8rem;
+  background-color: $mainPurple;
+  top: -15%;
+  left: 10%;
+  padding: 0 .5rem;
+}
+
+.text {
+  width: 100%;
+  color: $mainDarkPurple
+}
+
+.wrapper {
+  width: 100%;
+}
+.select {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.user {
+  flex-grow: 1;
+}
+
+.numberInput {
+  width: 100%;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  text-align: center;
+}
