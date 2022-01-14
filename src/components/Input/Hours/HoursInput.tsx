@@ -7,15 +7,10 @@ type HoursProps = {
 }
 
 const DateInput = ({ dayName }: HoursProps) => {
-  const [input, setInput] = useState(false);
+  const [input, setInput] = useState(8);
   return (
-    <div className={style.wrapper}>
 
-      <div className={style.windowN}>
-        <div className={style.title}>{dayName}</div>
-        <input className={style.numberInput} type="number" value={8} />
-      </div>
-    </div>
+    <input className={style.numberInput} type="number" value={input} />
 
   );
 };

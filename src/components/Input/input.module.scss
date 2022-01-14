@@ -1,20 +1,12 @@
 @import "../../assets/styles/style";
 
 //TODO
-.windowN {
-  display: flex;
-  border: 2px solid $mainDarkPurple;
-  justify-content: center;
-  border-radius: 5px;
-  width: 100%;
-  position: relative;
-}
 
 .window {
   display: flex;
   border: 2px solid $mainDarkPurple;
-  justify-content: center;
   border-radius: 5px;
+  justify-content: center;
   padding: 1rem;
   width: 100%;
   position: relative;
@@ -36,7 +28,9 @@
 
 .wrapper {
   width: 100%;
+  position: relative;
 }
+
 .select {
   width: 100%;
   display: flex;
@@ -51,8 +45,33 @@
 
 .numberInput {
   width: 100%;
-  border: none;
   padding: 1rem;
   font-size: 1rem;
   text-align: center;
+  border: 2px solid $mainDarkPurple;
+  border-radius: 5px;
+}
+
+.dropdown {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 0 0 5px 5px;
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  border: 2px solid $mainDarkPurple;
+}
+
+.employeeItem {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.employeeItem:hover {
+  background-color: $mainDarkPurple;
+  color: #fff;
+}
+
+.open {
+  border-radius: 5px 5px 0 0;
 }
