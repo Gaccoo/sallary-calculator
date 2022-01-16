@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
+import '../../../assets/styles/daypicker.scss';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { MdOutlineArrowDropUp } from 'react-icons/md';
 import style from '../input.module.scss';
-import data from '../../../data/data';
+import DatePicker from '../DatePicker';
 
-const DateInput = () => {
+type DateInputProps = {
+  selectedWeek: Date[] | null
+  onDateChange: (date: Date[]) => void
+}
+
+const DateInput = ({ selectedWeek, onDateChange }: DateInputProps) => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState('');
+
+  const dateChangeHandler = (value: Date[]) => {
+    setOpen(false);
+    onDateChange(value);
+  };
+
   return (
     <div className={style.wrapper}>
 
@@ -15,7 +26,11 @@ const DateInput = () => {
         <div className={style.wrapper}>
           <div className={style.select} onClick={() => setOpen(!open)}>
             <AiOutlineCalendar />
-            <div className={style.user}>{selected || 'Select Date'}</div>
+            <div
+              className={style.user}
+            >
+              {selectedWeek ? `${selectedWeek[0].toLocaleDateString()} - ${selectedWeek[6].toLocaleDateString()}` : 'Select Date'}
+            </div>
             <MdOutlineArrowDropUp />
           </div>
 
@@ -23,18 +38,8 @@ const DateInput = () => {
       </div>
       {open ? (
         <div className={style.dropdown}>
-          {data.map((item) => (
-            <div
-              key={item.id}
-              className={style.employeeItem}
-              onClick={() => {
-                setOpen(false);
-                setSelected(item.name);
-              }}
-            >
-              {item.name}
-            </div>
-          ))}
+          <DatePicker onDateChange={dateChangeHandler} />
+
         </div>
       ) : null}
     </div>

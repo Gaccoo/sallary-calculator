@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { FaRegUser } from 'react-icons/fa';
 import { MdOutlineArrowDropUp } from 'react-icons/md';
-import data from '../../../data/data';
+import data, { Employee } from '../../../data/data';
 import style from '../input.module.scss';
 
-const EmployeeInput = () => {
-  const [selected, setSelected] = useState('');
+type EIProps = {
+  employees: Employee[]
+  selectedEmployee: Employee
+  onEmployeeChange: (employee: Employee) => void
+}
+
+const EmployeeInput = ({ employees, onEmployeeChange, selectedEmployee }:EIProps) => {
   const [open, setOpen] = useState(false);
   return (
     <div className={style.wrapper}>
@@ -15,7 +20,7 @@ const EmployeeInput = () => {
         <div className={style.wrapper}>
           <div className={style.select} onClick={() => setOpen(!open)}>
             <FaRegUser />
-            <div className={style.user}>{selected || 'Select Employee'}</div>
+            <div className={style.user}>{selectedEmployee.name || 'Select Employee'}</div>
             <MdOutlineArrowDropUp />
           </div>
 
@@ -24,13 +29,13 @@ const EmployeeInput = () => {
 
       {open ? (
         <div className={style.dropdown}>
-          {data.map((item) => (
+          {employees.map((item) => (
             <div
               key={item.id}
               className={style.employeeItem}
               onClick={() => {
                 setOpen(false);
-                setSelected(item.name);
+                onEmployeeChange(item);
               }}
             >
               {item.name}

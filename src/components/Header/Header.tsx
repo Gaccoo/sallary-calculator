@@ -1,13 +1,21 @@
-import Dropdown from '../DropDown/Dropdown';
-import Input from '../Input/Input';
-import WorkerSelect from '../WorkerSelect/WorkerSelect';
 import EmployeeInput from '../Input/EmployeeInput/EmployeeInput';
 import DateInput from '../Input/DateInput/DateInput';
+import { Employee } from '../../data/data';
 
-const Header = () => (
+type HeaderProps = {
+  employees: Employee[]
+  selectedEmployee: Employee
+  selectedWeek: Date[] | null
+  onEmployeeChange: (employee: Employee) => void
+  onDateChange: (date: Date[]) => void
+}
+
+const Header = ({
+  employees, selectedWeek, onDateChange, onEmployeeChange, selectedEmployee,
+}:HeaderProps) => (
   <div className="header">
-    <EmployeeInput />
-    <DateInput />
+    <EmployeeInput employees={employees} selectedEmployee={selectedEmployee} onEmployeeChange={onEmployeeChange} />
+    <DateInput selectedWeek={selectedWeek} onDateChange={onDateChange} />
   </div>
 );
 

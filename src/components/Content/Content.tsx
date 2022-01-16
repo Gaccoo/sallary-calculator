@@ -1,10 +1,32 @@
 import Row from '../Row/Row';
+import { WorkHours } from '../../data/data';
 
-const Content = () => {
+type ContentProps = {
+  workHoursFormatted: WorkHours[]
+}
+
+const Content = ({ workHoursFormatted }: ContentProps) => {
   const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+  if (!workHoursFormatted) {
+    return (
+      <div className="content">
+        IMAGE HERE
+      </div>
+    );
+  }
+
   return (
     <div className="content">
-      {weekdays.map((item) => (<Row key={item} title={item} />))}
+      {workHoursFormatted.map((item, index) => (
+        <Row
+          hours={item.hours}
+          key={item.day}
+          date={item.day}
+          title={weekdays[index]}
+          dayNumber={index} // TODO REMOVE THIS
+        />
+      ))}
     </div>
   );
 };
