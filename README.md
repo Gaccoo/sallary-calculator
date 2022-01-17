@@ -9,7 +9,6 @@ Nice to haves:
 * strict TypeScript (if using TypeScript)
 * code conforms to lint rules
 
-
 Expected functionality:
 
 * generate random timesheets with random employees
@@ -18,9 +17,6 @@ Expected functionality:
 * delay update of monetary values by 0.25-1sec by faking REST API call and display a progress indicator in the 
 * meantime. The assumption is the backend (REST API) calculates monetary values.
 * for all employees set random hourly rate the weekdays and double hourly rate for the weekend hours
-
-
-
 
 Example.
 

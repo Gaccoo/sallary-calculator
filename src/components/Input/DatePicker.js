@@ -3,7 +3,7 @@ import Helmet from 'react-helmet';
 import moment from 'moment';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-import { getWeekDays, getWeekRange } from '../../DateGenerator';
+import { getWeekDays, getWeekRange } from '../../Generator';
 
 export default class DatePicker extends React.Component {
   constructor(props) {

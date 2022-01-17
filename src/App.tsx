@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Header from './components/Header/Header';
 import Content from './components/Content/Content';
 import Footer from './components/Footer/Footer';
-import data, { Employee, WorkHours, WorkHoursWithSalary } from './data/data';
-import { getWeekRange, getWeekDays } from './DateGenerator';
+import { getWeekRange, getWeekDays, generateInitialData } from './Generator';
+import {
+  Employee, WorkHours, WorkHoursWithSalary,
+} from './data/data';
 import './App.scss';
 
 const initialWeek = getWeekDays(getWeekRange(new Date()).from);
@@ -11,7 +13,7 @@ const salaryBase = 10;
 const salaryOvertime = salaryBase * 2;
 
 const App = () => {
-  const [employees, setEmployees] = useState<Employee[]>(data);
+  const [employees, setEmployees] = useState<Employee[]>(generateInitialData());
   const [selectedEmployee, setSelectedEmployee] = useState<Employee>(employees[0]);
   const [selectedWeek, setSelectedWeek] = useState<Date[]>(initialWeek);
   const [loading, setLoading] = useState(true);

@@ -57,6 +57,10 @@
   padding: 1rem;
   font-size: 1rem;
   text-align: center;
+
+  &:disabled {
+    background-color: #f5424220;
+  }
 }
 
 .dropdown {
