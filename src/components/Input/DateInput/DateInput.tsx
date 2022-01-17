@@ -38,7 +38,7 @@ const DateInput = ({
   }, [open]);
 
   return (
-    <div className={style.wrapper} onClick={() => setOpen(!open)}>
+    <div className={style.wrapper} onClick={() => setOpen(!open)} ref={calendarWindowRef}>
 
       <div className={open ? `${style.window} ${style.open}` : style.window}>
         <div className={style.title}>Date</div>
@@ -58,7 +58,7 @@ const DateInput = ({
         </div>
       </div>
       {open ? (
-        <div className={style.dropdown} ref={calendarWindowRef}>
+        <div className={style.dropdown}>
           <DatePicker onDateChange={dateChangeHandler} />
 
         </div>

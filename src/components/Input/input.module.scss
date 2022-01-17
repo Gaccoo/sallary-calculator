@@ -59,7 +59,8 @@
   border-radius: 0 0 5px 5px;
   position: absolute;
   z-index: 1;
-  overflow: hidden;
+  max-height: 600%;
+  overflow-y: scroll;
   border: 2px solid $mainDarkPurple;
 }
 

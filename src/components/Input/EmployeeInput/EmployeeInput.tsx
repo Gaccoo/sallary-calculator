@@ -27,7 +27,7 @@ const EmployeeInput = ({ employees, onEmployeeChange, selectedEmployee }:EIProps
   }, [open]);
 
   return (
-    <div className={style.wrapper} onClick={() => setOpen(!open)}>
+    <div className={style.wrapper} onClick={() => setOpen(!open)} ref={employeeWindowRef}>
 
       <div className={open ? `${style.window} ${style.open}` : style.window}>
         <div className={style.title}>Employee</div>
@@ -42,7 +42,7 @@ const EmployeeInput = ({ employees, onEmployeeChange, selectedEmployee }:EIProps
       </div>
 
       {open ? (
-        <div className={style.dropdown} ref={employeeWindowRef}>
+        <div className={style.dropdown}>
           {employees.map((item) => (
             <div
               key={item.id}
