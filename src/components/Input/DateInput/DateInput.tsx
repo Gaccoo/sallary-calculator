@@ -59,7 +59,7 @@ const DateInput = ({
       </div>
       {open ? (
         <div className={style.dropdown} ref={calendarWindowRef}>
-          <DatePicker onDateChange={dateChangeHandler} onBlur={() => setOpen(false)} />
+          <DatePicker onDateChange={dateChangeHandler} />
 
         </div>
       ) : null}

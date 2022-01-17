@@ -44,7 +44,10 @@ export default class DatePicker extends React.Component {
   };
 
   render() {
-    const { hoverRange, selectedDays } = this.state;
+    const {
+      hoverRange,
+      selectedDays,
+    } = this.state;
 
     const daysAreSelected = selectedDays.length > 0;
 
@@ -74,11 +77,13 @@ export default class DatePicker extends React.Component {
         />
         {selectedDays.length === 7 && (
           <div>
-            {moment(selectedDays[0]).format('LL')}
+            {moment(selectedDays[0])
+              .format('LL')}
             {' '}
             –
             {' '}
-            {moment(selectedDays[6]).format('LL')}
+            {moment(selectedDays[6])
+              .format('LL')}
           </div>
         )}
 

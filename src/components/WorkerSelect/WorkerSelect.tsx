@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { FaRegUser } from 'react-icons/fa';
 import { MdOutlineArrowDropUp } from 'react-icons/md';
-import style from './workerSelect.module.scss';
-
 import WorkerDropdown from './WorkerDropdown/WorkerDropdown';
+import style from './workerSelect.module.scss';
 
 const WorkerSelect = () => {
   const [open, setOpen] = useState(false);
