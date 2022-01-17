@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, {
+  useEffect, useRef, useState,
+} from 'react';
 import '../../../assets/styles/daypicker.scss';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { MdOutlineArrowDropUp } from 'react-icons/md';
@@ -15,11 +17,25 @@ const DateInput = ({
   onDateChange,
 }: DateInputProps) => {
   const [open, setOpen] = useState(false);
-
+  const calendarWindowRef = useRef<any>(null);
   const dateChangeHandler = (value: Date[]) => {
     setOpen(false);
     onDateChange(value);
   };
+
+  useEffect(() => {
+    const isClickedOutside = (e: any) => {
+      if (open && calendarWindowRef.current && !calendarWindowRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', isClickedOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', isClickedOutside);
+    };
+  }, [open]);
 
   return (
     <div className={style.wrapper} onClick={() => setOpen(!open)}>
@@ -42,8 +58,8 @@ const DateInput = ({
         </div>
       </div>
       {open ? (
-        <div className={style.dropdown}>
-          <DatePicker onDateChange={dateChangeHandler} />
+        <div className={style.dropdown} ref={calendarWindowRef}>
+          <DatePicker onDateChange={dateChangeHandler} onBlur={() => setOpen(false)} />
 
         </div>
       ) : null}

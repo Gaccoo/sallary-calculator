@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaRegUser } from 'react-icons/fa';
 import { MdOutlineArrowDropUp } from 'react-icons/md';
 import { Employee } from '../../../data/data';
@@ -12,6 +12,20 @@ type EIProps = {
 
 const EmployeeInput = ({ employees, onEmployeeChange, selectedEmployee }:EIProps) => {
   const [open, setOpen] = useState(false);
+  const employeeWindowRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const isClickedOutside = (e: any) => {
+      if (open && employeeWindowRef.current && !employeeWindowRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', isClickedOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', isClickedOutside);
+    };
+  }, [open]);
+
   return (
     <div className={style.wrapper} onClick={() => setOpen(!open)}>
 
@@ -28,7 +42,7 @@ const EmployeeInput = ({ employees, onEmployeeChange, selectedEmployee }:EIProps
       </div>
 
       {open ? (
-        <div className={style.dropdown}>
+        <div className={style.dropdown} ref={employeeWindowRef}>
           {employees.map((item) => (
             <div
               key={item.id}

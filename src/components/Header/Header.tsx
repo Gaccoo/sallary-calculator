@@ -11,8 +11,12 @@ type HeaderProps = {
 }
 
 const Header = ({
-  employees, selectedWeek, onDateChange, onEmployeeChange, selectedEmployee,
-}:HeaderProps) => (
+  employees,
+  selectedWeek,
+  onDateChange,
+  onEmployeeChange,
+  selectedEmployee,
+}: HeaderProps) => (
   <div className="header">
     <EmployeeInput employees={employees} selectedEmployee={selectedEmployee} onEmployeeChange={onEmployeeChange} />
     <DateInput selectedWeek={selectedWeek} onDateChange={onDateChange} />

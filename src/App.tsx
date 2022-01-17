@@ -15,13 +15,13 @@ const App = () => {
   const [selectedEmployee, setSelectedEmployee] = useState<Employee>(employees[0]);
   const [selectedWeek, setSelectedWeek] = useState<Date[]>(initialWeek);
   const [loading, setLoading] = useState(true);
-  const datesToShow = selectedWeek.map((item) => item.toLocaleDateString());
 
-  const workHoursToShow: WorkHours[] | undefined = selectedEmployee?.workHours
-    .filter((item) => selectedWeek?.some((i) => i.toLocaleDateString() === item.day));
+  const datesToShow = selectedWeek.map((item) => item.toLocaleDateString());
+  const workDaysToShow: WorkHours[] = selectedEmployee.workHours
+    .filter((item) => selectedWeek.some((i) => i.toLocaleDateString() === item.day));
 
   const workHoursFormatted = (): WorkHoursWithSalary[] => datesToShow.map((item, index) => {
-    const currentDayData = workHoursToShow?.find((currentDay) => currentDay.day === item);
+    const currentDayData = workDaysToShow.find((currentDay) => currentDay.day === item);
     if (currentDayData && index < 5) {
       return {
         ...currentDayData,
@@ -43,9 +43,11 @@ const App = () => {
 
   const employeeHoursData = selectedEmployee.workHours
     .filter((item) => datesToShow.some((date) => date === item.day));
+
   const totalHours = workHoursFormatted()
     .map((item) => item.hours)
     .reduce((a, b) => a + b);
+
   const onEmployeeChange = (employee: Employee) => {
     const newEmployee = { ...employee };
     setSelectedEmployee(newEmployee);
