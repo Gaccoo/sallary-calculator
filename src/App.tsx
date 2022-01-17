@@ -1,49 +1,88 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
-import phone from './assets/phone.png';
 import Header from './components/Header/Header';
 import Content from './components/Content/Content';
 import Footer from './components/Footer/Footer';
-import data, { Employee, WorkHours } from './data/data';
+import data, { Employee, WorkHours, WorkHoursWithSalary } from './data/data';
 import { getWeekRange, getWeekDays } from './DateGenerator';
 import './App.scss';
 
 const initialWeek = getWeekDays(getWeekRange(new Date()).from);
+const salaryBase = 10;
+const salaryOvertime = salaryBase * 2;
 
 const App = () => {
-  // INITIAL DATA
   const [employees, setEmployees] = useState<Employee[]>(data);
-
-  // INPUT
-  const [selectedEmployee, setSelectedEmployee] = useState<Employee>(data[0]);
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee>(employees[0]);
   const [selectedWeek, setSelectedWeek] = useState<Date[]>(initialWeek);
-  // CONTENT
-  const [weeklyOverview, setWeeklyOverview] = useState<WorkHours[]>([{ day: '1/10/2022', hours: 1 }]);
-  // FOOTER
-  const [summary, setSummary] = useState();
-
+  const [loading, setLoading] = useState(true);
   const datesToShow = selectedWeek.map((item) => item.toLocaleDateString());
 
-  const workHoursToShow : WorkHours[] | undefined = selectedEmployee?.workHours.filter((item) => selectedWeek?.some((i) => i.toLocaleDateString() === item.day));
+  const workHoursToShow: WorkHours[] | undefined = selectedEmployee?.workHours
+    .filter((item) => selectedWeek?.some((i) => i.toLocaleDateString() === item.day));
 
-  const workHoursFormatted = datesToShow.map((item) => {
-    const currentDayData = workHoursToShow?.find((curDay) => curDay.day === item);
-    if (currentDayData) {
-      return currentDayData;
+  const workHoursFormatted = (): WorkHoursWithSalary[] => datesToShow.map((item, index) => {
+    const currentDayData = workHoursToShow?.find((currentDay) => currentDay.day === item);
+    if (currentDayData && index < 5) {
+      return {
+        ...currentDayData,
+        salary: salaryBase * currentDayData.hours,
+      };
     }
-    return { day: item, hours: 0 };
+    if (currentDayData && index >= 5) {
+      return {
+        ...currentDayData,
+        salary: salaryOvertime * currentDayData.hours,
+      };
+    }
+    return {
+      day: item,
+      hours: 0,
+      salary: 0,
+    };
   });
 
+  const employeeHoursData = selectedEmployee.workHours
+    .filter((item) => datesToShow.some((date) => date === item.day));
+  const totalHours = workHoursFormatted()
+    .map((item) => item.hours)
+    .reduce((a, b) => a + b);
   const onEmployeeChange = (employee: Employee) => {
-    setSelectedEmployee(employee);
+    const newEmployee = { ...employee };
+    setSelectedEmployee(newEmployee);
   };
 
   const onDateChange = (selectedDate: Date[]) => {
-    setSelectedWeek(selectedDate);
+    setSelectedWeek([...selectedDate]);
+  };
+
+  const onHoursChange = (value: WorkHours) => {
+    const employeeCopy = { ...selectedEmployee };
+    const dayHasValue = employeeCopy.workHours.find((item) => item.day === value.day);
+
+    if (!dayHasValue) {
+      employeeCopy.workHours.push(value);
+    } else {
+      const editedDay = employeeCopy.workHours.find((item) => item.day === value.day);
+      if (editedDay) {
+        editedDay.hours = value.hours;
+      }
+    }
+
+    const newState = employees.map((item) => {
+      if (item.id === employeeCopy.id) {
+        return employeeCopy;
+      }
+      return item;
+    });
+
+    setEmployees(newState);
   };
 
   useEffect(() => {
-    setWeeklyOverview(workHoursFormatted);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, [selectedEmployee, selectedWeek]);
 
   return (
@@ -57,9 +96,19 @@ const App = () => {
           selectedWeek={selectedWeek}
           onDateChange={onDateChange}
         />
-        <Content workHoursFormatted={workHoursFormatted} />
-        <Footer />
-        {/* <img className="phone" src={phone} alt="Phone" /> */}
+        <Content
+          loading={loading}
+          workHoursFormatted={workHoursFormatted()}
+          onHoursChange={onHoursChange}
+          employeeHoursData={employeeHoursData}
+        />
+        <Footer
+          loading={loading}
+          totalHours={totalHours}
+          totalSalary={workHoursFormatted()
+            .map((i) => i.salary)
+            .reduce((a, b) => a + b)}
+        />
 
       </div>
     </div>

@@ -1,3 +1,4 @@
+@import "../../assets/styles/style";
 .row {
   padding: .5rem 0;
   width: 100%;
@@ -8,4 +9,76 @@
 
 .sum {
   justify-self: right;
+}
+
+.window {
+  display: flex;
+  border: 2px solid $mainDarkPurple;
+  border-radius: 5px;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+
+.title {
+  position: absolute;
+  font-size: .8rem;
+  background-color: #fff;
+  top: -15%;
+  left: 10%;
+  padding: 0 .5rem;
+}
+
+.text {
+  width: 100%;
+  color: $mainDarkPurple
+}
+
+.wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.select {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.user {
+  flex-grow: 1;
+}
+
+.numberInput {
+  width: 100%;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.dropdown {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 0 0 5px 5px;
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  border: 2px solid $mainDarkPurple;
+}
+
+.employeeItem {
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.employeeItem:hover {
+  background-color: $mainDarkPurple;
+  color: #fff;
+}
+
+.open {
+  border-radius: 5px 5px 0 0;
 }

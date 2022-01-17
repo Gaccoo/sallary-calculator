@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaRegUser } from 'react-icons/fa';
 import { MdOutlineArrowDropUp } from 'react-icons/md';
-import data, { Employee } from '../../../data/data';
+import { Employee } from '../../../data/data';
 import style from '../input.module.scss';
 
 type EIProps = {
@@ -13,12 +13,12 @@ type EIProps = {
 const EmployeeInput = ({ employees, onEmployeeChange, selectedEmployee }:EIProps) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} onClick={() => setOpen(!open)}>
 
       <div className={open ? `${style.window} ${style.open}` : style.window}>
         <div className={style.title}>Employee</div>
         <div className={style.wrapper}>
-          <div className={style.select} onClick={() => setOpen(!open)}>
+          <div className={style.select}>
             <FaRegUser />
             <div className={style.user}>{selectedEmployee.name || 'Select Employee'}</div>
             <MdOutlineArrowDropUp />

@@ -37,7 +37,7 @@ export default class DatePicker extends React.Component {
     });
   };
 
-  handleWeekClick = (weekNumber, days, e) => {
+  handleWeekClick = (weekNumber, days) => {
     this.setState({
       selectedDays: days,
     });
@@ -64,7 +64,6 @@ export default class DatePicker extends React.Component {
       <div className="SelectedWeekExample">
         <DayPicker
           selectedDays={selectedDays}
-          showWeekNumbers
           showOutsideDays
           modifiers={modifiers}
           onDayClick={this.handleDayChange}

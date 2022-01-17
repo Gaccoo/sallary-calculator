@@ -1,32 +1,38 @@
 import Row from '../Row/Row';
-import { WorkHours } from '../../data/data';
+import { WorkHours, WorkHoursWithSalary } from '../../data/data';
 
 type ContentProps = {
-  workHoursFormatted: WorkHours[]
+  workHoursFormatted: WorkHoursWithSalary[]
+  onHoursChange: (value: WorkHours) => void
+  employeeHoursData: WorkHours[]
+  loading: boolean
 }
 
-const Content = ({ workHoursFormatted }: ContentProps) => {
+const Content = ({
+  workHoursFormatted,
+  onHoursChange,
+  employeeHoursData,
+  loading,
+}: ContentProps) => {
   const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-  if (!workHoursFormatted) {
-    return (
-      <div className="content">
-        IMAGE HERE
-      </div>
-    );
-  }
 
   return (
     <div className="content">
-      {workHoursFormatted.map((item, index) => (
-        <Row
-          hours={item.hours}
-          key={item.day}
-          date={item.day}
-          title={weekdays[index]}
-          dayNumber={index} // TODO REMOVE THIS
-        />
-      ))}
+      {loading ? (<h1 className="loading">Loading...</h1>)
+        : workHoursFormatted.map((item, index) => {
+          const hasData = employeeHoursData.find((day) => day.day === item.day);
+          return (
+            <Row
+              workHoursFormatted={workHoursFormatted[index]}
+              onHoursChange={onHoursChange}
+              hours={hasData ? hasData.hours : item.hours}
+              key={item.day}
+              date={item.day}
+              title={weekdays[index]}
+            />
+          );
+        })}
+
     </div>
   );
 };

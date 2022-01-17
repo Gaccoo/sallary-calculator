@@ -10,7 +10,10 @@ type DateInputProps = {
   onDateChange: (date: Date[]) => void
 }
 
-const DateInput = ({ selectedWeek, onDateChange }: DateInputProps) => {
+const DateInput = ({
+  selectedWeek,
+  onDateChange,
+}: DateInputProps) => {
   const [open, setOpen] = useState(false);
 
   const dateChangeHandler = (value: Date[]) => {
@@ -19,17 +22,19 @@ const DateInput = ({ selectedWeek, onDateChange }: DateInputProps) => {
   };
 
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} onClick={() => setOpen(!open)}>
 
       <div className={open ? `${style.window} ${style.open}` : style.window}>
         <div className={style.title}>Date</div>
         <div className={style.wrapper}>
-          <div className={style.select} onClick={() => setOpen(!open)}>
+          <div className={style.select}>
             <AiOutlineCalendar />
             <div
               className={style.user}
             >
-              {selectedWeek ? `${selectedWeek[0].toLocaleDateString()} - ${selectedWeek[6].toLocaleDateString()}` : 'Select Date'}
+              {selectedWeek
+                ? `${selectedWeek[0].toLocaleDateString()} - ${selectedWeek[6].toLocaleDateString()}`
+                : 'Select Date'}
             </div>
             <MdOutlineArrowDropUp />
           </div>
