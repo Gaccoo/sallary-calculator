@@ -18,7 +18,9 @@ type DateInputProps = {
   onDateChange: (date: Date[]) => void
 }
 const options: DateTimeFormatOptions = {
-  day: 'numeric', month: 'short', year: 'numeric',
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
 };
 const formatDate = (input: Date) => input.toLocaleDateString('en-US', options);
 
@@ -27,15 +29,16 @@ const DateInput = ({
   onDateChange,
 }: DateInputProps) => {
   const [open, setOpen] = useState(false);
-  const calendarWindowRef = useRef<any>(null);
+  const dateSelector = useRef<any>(null);
+  const calendarWindow = useRef<any>(null);
   const dateChangeHandler = (value: Date[]) => {
-    setOpen(false);
     onDateChange(value);
+    setOpen(false);
   };
 
   useEffect(() => {
     const isClickedOutside = (e: any) => {
-      if (open && calendarWindowRef.current && !calendarWindowRef.current.contains(e.target)) {
+      if (open && dateSelector.current && !dateSelector.current.contains(e.target)) {
         setOpen(false);
       }
     };
@@ -48,7 +51,15 @@ const DateInput = ({
   }, [open]);
 
   return (
-    <div className={style.wrapper} onClick={() => setOpen(!open)} ref={calendarWindowRef}>
+    <div
+      className={style.wrapper}
+      onClick={(e) => {
+        if (!calendarWindow.current || !calendarWindow.current.contains(e.target)) {
+          setOpen(!open);
+        }
+      }}
+      ref={dateSelector}
+    >
 
       <div className={open ? `${style.window} ${style.open}` : style.window}>
         <div className={style.title}>Date</div>
@@ -68,7 +79,7 @@ const DateInput = ({
         </div>
       </div>
       {open ? (
-        <div className={style.dropdown}>
+        <div className={style.dropdown} ref={calendarWindow}>
           <DatePicker onDateChange={dateChangeHandler} />
 
         </div>

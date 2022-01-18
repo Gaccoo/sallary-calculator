@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { names, WorkHours } from './data/data';
 
-export const getLastFiveWeeks = () => [...new Array(31)]
+export const getLastFiveWeeks = () => [...new Array(35)]
   .map((i, idx) => moment()
     .startOf('day')
     .subtract(idx, 'days')
@@ -35,8 +35,11 @@ export const generateInitialData = () => {
   const randomEmployeeCount = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
   const emptyEmployeeArray = new Array(randomEmployeeCount).fill({});
 
-  const generateFiveWeekWorkHours = ():WorkHours[] => emptyFiveWeeks
-    .map((item) => ({ day: item, hours: Math.floor(Math.random() * (12 - 3 + 1)) + 3 }));
+  const generateFiveWeekWorkHours = (): WorkHours[] => emptyFiveWeeks
+    .map((item) => ({
+      day: item,
+      hours: Math.floor(Math.random() * (12 - 3 + 1)) + 3,
+    }));
 
   return emptyEmployeeArray.map((item, index) => ({
     id: index,
