@@ -16,17 +16,15 @@ const Footer = ({
       <span>Hours worked</span>
       <span>
         {loading ? 0 : totalHours}
-        {' '}
-        h
       </span>
     </div>
 
     <div className={style.summaryRow}>
       <span>Salary</span>
       <span>
-        {loading ? 0 : totalSalary}
-        {' '}
         €
+        {loading ? 0 : totalSalary}
+
       </span>
     </div>
   </div>

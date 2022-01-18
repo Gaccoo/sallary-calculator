@@ -30,6 +30,7 @@ export const getWeekRange = (date: Date) => ({
 });
 
 export const generateInitialData = () => {
+  const generateRandomNameIndex = () => Math.floor(Math.random() * names.length - 1);
   const emptyFiveWeeks = getLastFiveWeeks();
   const randomEmployeeCount = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
   const emptyEmployeeArray = new Array(randomEmployeeCount).fill({});
@@ -39,7 +40,7 @@ export const generateInitialData = () => {
 
   return emptyEmployeeArray.map((item, index) => ({
     id: index,
-    name: names[Math.floor(Math.random() * names.length - 1)],
+    name: `${names[generateRandomNameIndex()]} ${names[generateRandomNameIndex()]}`,
     workHours: generateFiveWeekWorkHours(),
   }));
 };

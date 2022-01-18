@@ -54,7 +54,7 @@ const Row = ({
     </div>
 
     <div className={style.sum}>
-      {`${workHoursFormatted.salary} €`}
+      {`€${workHoursFormatted.salary}`}
     </div>
   </div>
 );
