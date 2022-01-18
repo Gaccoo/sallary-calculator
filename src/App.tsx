@@ -19,11 +19,12 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   const datesToShow = selectedWeek.map((item) => item.toLocaleDateString());
-  const workDaysToShow: WorkHours[] = selectedEmployee.workHours
-    .filter((item) => selectedWeek.some((i) => i.toLocaleDateString() === item.day));
+
+  const employeeHoursData = selectedEmployee.workHours
+    .filter((item) => datesToShow.some((date) => date === item.day));
 
   const workHoursFormatted = (): WorkHoursWithSalary[] => datesToShow.map((item, index) => {
-    const currentDayData = workDaysToShow.find((currentDay) => currentDay.day === item);
+    const currentDayData = employeeHoursData.find((currentDay) => currentDay.day === item);
     if (currentDayData && index < 5) {
       return {
         ...currentDayData,
@@ -42,9 +43,6 @@ const App = () => {
       salary: 0,
     };
   });
-
-  const employeeHoursData = selectedEmployee.workHours
-    .filter((item) => datesToShow.some((date) => date === item.day));
 
   const totalHours = workHoursFormatted()
     .map((item) => item.hours)
@@ -66,11 +64,10 @@ const App = () => {
     if (!dayHasValue) {
       employeeCopy.workHours.push(value);
     } else {
-      const editedDay = employeeCopy.workHours.find((item) => item.day === value.day);
-      if (editedDay) {
-        editedDay.hours = value.hours;
-      }
+      dayHasValue.hours = value.hours;
     }
+
+    employeeCopy.workHours = employeeCopy.workHours.filter((item) => !!item.hours);
 
     const newState = employees.map((item) => {
       if (item.id === employeeCopy.id) {
@@ -104,7 +101,6 @@ const App = () => {
           loading={loading}
           workHoursFormatted={workHoursFormatted()}
           onHoursChange={onHoursChange}
-          employeeHoursData={employeeHoursData}
         />
         <Footer
           loading={loading}
