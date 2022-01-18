@@ -43,4 +43,5 @@ ___
 - Only available characters in hours input are numbers [0 - 9]
 - The maximum hours of hours input has been limited to 24, if user tries to enter > 24 it automatically sets itself to it`s maximum
 
-Design from [Figma link](https://www.figma.com/proto/SFakCFUvpr7cvtLGhRHEdm/Material-3-Design-Kit-(Community)?node-id=50995%3A3213&scaling=scale-down&page-id=50995%3A3212)
+Design from [Figma link](https://www.figma.com/proto/SFakCFUvpr7cvtLGhRHEdm/Material-3-Design-Kit-(Community)?node-id=50995%3A3213&scaling=scale-down&page-id=50995%3A3212)  
+Try it out [Heroku link](https://boiling-meadow-44930.herokuapp.com/)
